@@ -63,3 +63,17 @@ impl<T> BusMutex<T> for ::cortex_m::interrupt::Mutex<T> {
         })
     }
 }
+
+#[cfg(feature = "riscv")]
+impl<T> BusMutex<T> for ::riscv::interrupt::Mutex<T> {
+    fn create(v: T) -> ::riscv::interrupt::Mutex<T> {
+        ::riscv::interrupt::Mutex::new(v)
+    }
+
+    fn lock<R, F: FnOnce(&T) -> R>(&self, f: F) -> R {
+        ::riscv::interrupt::free(|cs| {
+            let v = self.borrow(cs);
+            f(v)
+        })
+    }
+}

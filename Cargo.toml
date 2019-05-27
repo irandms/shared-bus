@@ -1,6 +1,6 @@
 [package]
 name = "shared-bus"
-version = "0.1.4"
+version = "0.1.5"
 authors = ["Rahix <rahix@rahix.de>"]
 
 description = "Abstraction for sharing a bus between multiple devices."
@@ -22,10 +22,15 @@ embedded-hal-mock = "0.4.0"
 optional = true
 version = "0.5.4"
 
+[dependencies.riscv]
+optional = true
+version = "0.5.2"
+
 [features]
 std = []
 docsrs = []
 cortexm = ["cortex-m"]
+risc-v = ["riscv"]
 
 [package.metadata.docs.rs]
 all-features = true

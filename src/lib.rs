@@ -41,6 +41,8 @@
 
 #[cfg(feature = "cortexm")]
 extern crate cortex_m;
+#[cfg(feature = "riscv")]
+extern crate riscv;
 extern crate embedded_hal as hal;
 
 pub mod mutex;
@@ -61,3 +63,9 @@ pub type StdBusManager<L, P> = BusManager<std::sync::Mutex<L>, P>;
 /// Only available if the `cortexm` feature is active.
 #[cfg(feature = "cortexm")]
 pub type CortexMBusManager<L, P> = BusManager<cortex_m::interrupt::Mutex<L>, P>;
+
+/// Type alias for a bus manager using [`riscv::interrupt::Mutex`].
+///
+/// Only available if the `riscv` feature is active.
+#[cfg(feature = "riscv")]
+pub type RISCVBusManager<L, P> = BusManager<riscv::interrupt::Mutex<L>, P>;
